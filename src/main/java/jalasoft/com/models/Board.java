@@ -1,14 +1,23 @@
 package jalasoft.com.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Board {
+public class Board {
 
   private int width;
   private int height;
   private List<Cell> elements;
 
-  public abstract void initializeElements();
+  public Board(int width, int height) {
+    this.width = width;
+    this.height = height;
+    elements = new ArrayList<Cell>();
+  }
+
+  public void addElement(Cell element) {
+    elements.add(element);
+  }
 
   public int getWidth() {
     return width;

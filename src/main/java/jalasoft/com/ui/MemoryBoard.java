@@ -1,9 +1,6 @@
 package jalasoft.com.ui;
 
-import jalasoft.com.behaviors.Matcher;
-import jalasoft.com.behaviors.PairMatcher;
-import jalasoft.com.models.Board;
-import jalasoft.com.models.Cell;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,56 +8,43 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 
-public class MemoryBoard extends Board implements ActionListener {
+public class MemoryBoard extends JFrame implements ActionListener {
 
-  private JFrame frame;
-  private Container container;
-  Matcher matchBehavior;
+  JButton about;
+  JButton solve;
+  JButton newGame;
+  List<JButton> buttonCards;
 
-  public MemoryBoard(int h, int w) {
-    setHeight(h);
-    setWidth(w);
-    matchBehavior = new PairMatcher();
+  Container container;
 
-    buildUI();
-    initializeElements();
+  public MemoryBoard() {
+    super("Memory Game by Ariel");
 
+    container = getContentPane();
+    setLayout(null);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocation(50,50);
+    setSize(600,500);
+    //setBackground(Color.magenta);
+
+    buttonCards = new ArrayList<>();
+    drawButtonCards();
+
+    setVisible(true);
   }
 
-  @Override
-  public void initializeElements() {
-    List<Cell> elements = new ArrayList<>();
+  public void drawButtonCards(){
     for (int i = 0; i < 10; i++) {
-      Cell cell = new Cell(button(50, 50, 0 + (50 * i), 0, "" + i));
-      elements.add(cell);
+      MemoryCard memoryCard = new MemoryCard(i, "" + i, 0 + (50 * i), 0);
+      memoryCard.addActionListener(this);
+      buttonCards.add(memoryCard);
+      add(memoryCard);
     }
-    setElements(elements);
-  }
-
-  public void buildUI() {
-    frame = new JFrame("Memory");
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.setSize(500, 500);
-    frame.setLayout(null);
-    container = frame.getContentPane();
-    frame.setVisible(true);
-  }
-
-  public JButton button(int w, int h, int x, int y, String text) {
-    JButton button = new JButton(text);
-    button.setSize(w, h);
-    button.setLocation(x, y);
-    frame.add(button);
-    button.addActionListener(this);
-    return button;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    Object obj = e.getSource();
-    JButton button = (JButton) obj;
-    System.out.println("Text -> " + button.getText());
+
   }
 }

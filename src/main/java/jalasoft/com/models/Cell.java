@@ -8,8 +8,9 @@ public class Cell<T> {
   private int id;
   private T element;
 
-  public Cell(T item) {
+  public Cell(T item, int id) {
     element = item;
+    this.id = id;
   }
 
   public Coordinate getCoordinate() {
