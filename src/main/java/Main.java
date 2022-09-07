@@ -1,5 +1,8 @@
+import jalasoft.com.ui.MemoryBoard;
+
 public class Main {
   public static void main (String args []){
-    System.out.println("hello memory game");
+
+    MemoryBoard memoryBoard = new MemoryBoard(5,5);
   }
 }
