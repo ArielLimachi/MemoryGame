@@ -1,5 +1,6 @@
 package jalasoft.com.models;
 
+import jalasoft.com.ui.MemoryCard;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,16 +8,16 @@ public class Board {
 
   private int width;
   private int height;
-  private List<Cell> elements;
+  private List<MemoryCard> elements;
 
   public Board(int width, int height) {
     this.width = width;
     this.height = height;
-    elements = new ArrayList<Cell>();
+    elements = new ArrayList<>();
   }
 
-  public void addElement(Cell element) {
-    elements.add(element);
+  public void addElement(MemoryCard memoryCard) {
+    elements.add(memoryCard);
   }
 
   public int getWidth() {
@@ -35,11 +36,15 @@ public class Board {
     this.height = height;
   }
 
-  public List<Cell> getElements() {
+  public int getSize() {
+    return width * height;
+  }
+
+  public List<MemoryCard> getElements() {
     return elements;
   }
 
-  public void setElements(List<Cell> elements) {
+  public void setElements(List<MemoryCard> elements) {
     this.elements = elements;
   }
 }

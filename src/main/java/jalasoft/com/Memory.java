@@ -3,57 +3,51 @@ package jalasoft.com;
 import jalasoft.com.behaviors.GameBehavior;
 import jalasoft.com.behaviors.MemoryBehavior;
 import jalasoft.com.models.Board;
+import jalasoft.com.ui.MemoryBoard;
+import jalasoft.com.ui.MemoryCard;
+import jalasoft.com.utils.ImageGenerator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Memory {
+public class Memory implements ActionListener{
 
-  //private JFrame frame;
-  //private Container container;
   Board board;
   GameBehavior behavior;
+  ImageGenerator imageGenerator;
+
+  MemoryBoard memoryBoard;
 
   public Memory(int w, int h) {
+    imageGenerator = new ImageGenerator();
     board = new Board(w, h);
     behavior = new MemoryBehavior();
 
+    memoryBoard = new MemoryBoard();
 
-
-    //buildUI();
-    //initializeElements();
-
+    setCards();
   }
 
-  public void setMemoryCards(){
-
-  }
-
-  /*
-  public void initializeElements() {
-    List<Cell> elements = new ArrayList<>();
-    for (int i = 0; i < 10; i++) {
-      MemoryCard memoryCard = new MemoryCard(i, "" + i, 0 + (50 * i), 0);
+  public void setCards() {
+    int elementsSize = board.getWidth() * board.getHeight();
+    for (int i = 0; i < elementsSize; i++) {
+      MemoryCard memoryCard = new MemoryCard(i, 0 + (85 * i), 0);
       memoryCard.addActionListener(this);
-      frame.add(memoryCard);
-      Cell cell = new Cell(memoryCard, i);
-      elements.add(cell);
+      memoryBoard.drawButtonCard(memoryCard);
+      board.addElement(memoryCard);
     }
-    setElements(elements);
   }
 
-  public void buildUI() {
-    frame = new JFrame("Memory");
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.setSize(500, 500);
-    frame.setLayout(null);
-    container = frame.getContentPane();
-    frame.setVisible(true);
+  public void performAction() {
+    behavior.performAction(board);
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
-    Object obj = e.getSource();
-    JButton button = (JButton) obj;
-    System.out.println("Text -> " + button.getText());
+  public void actionPerformed(ActionEvent event) {
+    Object obj = event.getSource();
+    MemoryCard button = (MemoryCard) obj;
+    System.out.println("...Text -> " + button.getText());
+    System.out.println("...id -> " + button.getId());
+    System.out.println("...state -> " + button.getState());
+    performAction();
   }
-
-   */
 }
