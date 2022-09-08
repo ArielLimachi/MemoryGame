@@ -1,29 +1,31 @@
 package jalasoft.com.ui;
 
 import jalasoft.com.models.CardState;
-import jalasoft.com.utils.ImageGenerator;
 import jalasoft.com.utils.UIConstants;
+import java.awt.Font;
 import java.util.Objects;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class MemoryCard extends JButton {
 
   int id;
+  char symbol;
   CardState state;
-  ImageIcon icon;
 
-  public MemoryCard(int id, int x, int y) {
+  public MemoryCard(int id) {
     super();
     this.id = id;
     setSize(UIConstants.MEMORY_CARD_WIDTH, UIConstants.MEMORY_CARD_HEIGHT);
-    setLocation(x, y);
     setDefaultHiddenState();
   }
 
   private void setDefaultHiddenState(){
     state = CardState.HIDDEN;
-    setIcon(new ImageGenerator().IconFactory(-1));
+    setText(""+'?');
+  }
+
+  public void setPosition (int x, int y){
+    setLocation(x,y);
   }
 
   public int getId() {
@@ -40,14 +42,6 @@ public class MemoryCard extends JButton {
 
   public void setState(CardState state) {
     this.state = state;
-  }
-
-  public ImageIcon getIcon() {
-    return icon;
-  }
-
-  public void setIcon(ImageIcon icon) {
-    this.icon = icon;
   }
 
   @Override
