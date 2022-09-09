@@ -8,7 +8,6 @@ import jalasoft.com.ui.MemoryCard;
 import jalasoft.com.utils.RandomCharGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class Memory implements ActionListener {
 
@@ -24,45 +23,31 @@ public class Memory implements ActionListener {
     memoryBoard = new MemoryBoard();
 
     setCards();
-    //setBoardCards();
   }
 
   public void setCards() {
     int elementsSize = board.getWidth() * board.getHeight();
-    for (int i = 0; i < elementsSize/2; i++) {
+    for (int i = 0; i < elementsSize; i = i + 2) {
       MemoryCard memoryCard = buildMemoryCard(i);
-      MemoryCard memoryCardTwo = memoryCard;
-
+      MemoryCard memoryCardTwo = buildMemoryCard(i + 1, memoryCard.getSymbol());
       memoryBoard.addButtonCard(memoryCard);
       board.addElement(memoryCard);
-    }
-    memoryBoard.drawButtonCards();
-
-  }
-
-  public void setBoardCards() {
-    int elementsSize = board.getWidth() * board.getHeight();
-    for (int i = 0; i < elementsSize / 2; i++) {
-      MemoryCard memoryCard = buildMemoryCard(i);
-      //memoryBoard.drawButtonCard(memoryCard);
-      board.addElement(memoryCard);
-    }
-    System.out.println("1 -> " + board.getElements().size());
-
-    List<MemoryCard> auxList = board.getElements();
-    board.getElements().addAll(auxList);
-    System.out.println("2 -> " + board.getElements().size());
-
-    for (int i = 0; i < board.getElements().size(); i++) {
-      memoryBoard.addButtonCard(board.getElements().get(i));
+      memoryBoard.addButtonCard(memoryCardTwo);
+      board.addElement(memoryCardTwo);
     }
     memoryBoard.drawButtonCards();
   }
 
   public MemoryCard buildMemoryCard(int id) {
-    MemoryCard memoryCard = new MemoryCard(id);
+    char symbol = RandomCharGenerator.getChar();
+    MemoryCard memoryCard = new MemoryCard(id, "" + symbol);
     memoryCard.addActionListener(this);
-    memoryCard.setText("" + RandomCharGenerator.getChar());
+    return memoryCard;
+  }
+
+  public MemoryCard buildMemoryCard(int id, char text) {
+    MemoryCard memoryCard = new MemoryCard(id, "" + text);
+    memoryCard.addActionListener(this);
     return memoryCard;
   }
 
@@ -74,10 +59,7 @@ public class Memory implements ActionListener {
   public void actionPerformed(ActionEvent event) {
     Object obj = event.getSource();
     MemoryCard button = (MemoryCard) obj;
-    System.out.println("...Text -> " + button.getText());
-    System.out.println("...id -> " + button.getId());
-    System.out.println("...state -> " + button.getState());
-
+    button.setClicked(true);
     performAction();
   }
 }
