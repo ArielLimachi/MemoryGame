@@ -3,6 +3,7 @@ package jalasoft.com.models;
 import jalasoft.com.ui.MemoryCard;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Board {
 
@@ -46,5 +47,23 @@ public class Board {
 
   public void setElements(List<MemoryCard> elements) {
     this.elements = elements;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Board board = (Board) o;
+    return width == board.width && height == board.height && Objects.equals(elements,
+        board.elements);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(width, height, elements);
   }
 }

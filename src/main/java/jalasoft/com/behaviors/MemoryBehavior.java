@@ -3,15 +3,16 @@ package jalasoft.com.behaviors;
 import jalasoft.com.models.Board;
 import jalasoft.com.models.CardState;
 import jalasoft.com.ui.MemoryCard;
+import jalasoft.com.utils.Constants;
 
 public class MemoryBehavior implements GameBehavior {
 
-  char firstSymbol = '-';
-  int firstCardId = -1;
-  char secondSymbol = '-';
-  int secondCardId = -1;
+  private char firstSymbol = Constants.EMPTY_SYMBOL;
+  private int firstCardId = Constants.NULL_ID;
+  private char secondSymbol = Constants.EMPTY_SYMBOL;
+  private int secondCardId = Constants.NULL_ID;
 
-  int clickCounter = 0;
+  private int clickCounter = Constants.CLICK_INITIAL_VALUE;
 
   @Override
   public void performAction(Board board) {
@@ -30,14 +31,14 @@ public class MemoryBehavior implements GameBehavior {
     }
     for (MemoryCard memoryCard : board.getElements()) {
       if (memoryCard.isClicked()) {
-        if (firstSymbol == '-') {
+        if (firstSymbol == Constants.EMPTY_SYMBOL) {
           memoryCard.setClicked(false);
           memoryCard.setState(CardState.SHOWN);
           firstSymbol = memoryCard.getSymbol();
           firstCardId = memoryCard.getId();
           break;
         }
-        if (secondSymbol == '-' && firstSymbol != '-') {
+        if (secondSymbol == Constants.EMPTY_SYMBOL && firstSymbol != Constants.EMPTY_SYMBOL) {
           memoryCard.setClicked(false);
           memoryCard.setState(CardState.SHOWN);
           secondSymbol = memoryCard.getSymbol();
@@ -49,7 +50,7 @@ public class MemoryBehavior implements GameBehavior {
   }
 
   public void checkSymbols(Board board) {
-    if (firstSymbol != '-' && secondSymbol != '-') {
+    if (firstSymbol != Constants.EMPTY_SYMBOL && secondSymbol != Constants.EMPTY_SYMBOL) {
       if (firstSymbol == secondSymbol) {
         board.getElements().get(firstCardId).setState(CardState.MATCHED);
         board.getElements().get(secondCardId).setState(CardState.MATCHED);
@@ -62,14 +63,14 @@ public class MemoryBehavior implements GameBehavior {
   }
 
   public boolean controlVariablesFilled() {
-    return firstSymbol != '-' && secondSymbol != '-';
+    return firstSymbol != Constants.EMPTY_SYMBOL && secondSymbol != Constants.EMPTY_SYMBOL;
   }
 
   public void resetControlVariables() {
-    firstSymbol = '-';
-    secondSymbol = '-';
-    firstCardId = -1;
-    secondCardId = -1;
+    firstSymbol = Constants.EMPTY_SYMBOL;
+    secondSymbol = Constants.EMPTY_SYMBOL;
+    firstCardId = Constants.NULL_ID;
+    secondCardId = Constants.NULL_ID;
   }
 
   public void hideMemoryCards(Board board) {

@@ -7,10 +7,10 @@ import javax.swing.JButton;
 
 public class MemoryCard extends JButton {
 
-  int id;
-  char symbol;
-  CardState state;
-  boolean clicked;
+  private int id;
+  private char symbol;
+  private CardState state;
+  private boolean clicked;
 
   public MemoryCard(int id, String text) {
     super();

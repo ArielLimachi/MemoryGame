@@ -11,19 +11,20 @@ import javax.swing.JFrame;
 
 public class MemoryBoard extends JFrame {
 
-  JButton about;
-  JButton solve;
-  JButton newGame;
-  List<MemoryCard> buttonCards;
-  Container container;
+  private JButton about;
+  private JButton solve;
+  private JButton newGame;
+  private List<MemoryCard> buttonCards;
+  private Container container;
 
   public MemoryBoard() {
-    super(UIConstants.GAME_NAME);
+    super(UIConstants.MAIN_FRAME_TITLE);
     setLayout(new FlowLayout());
     container = getContentPane();
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocation(150, 150);
-    setSize(1200, 150);
+
+    setLocation(UIConstants.MAIN_FRAME_POSITION);
+    setSize(UIConstants.MAIN_FRAME_WIDTH, UIConstants.MAIN_FRAME_HEIGHT);
 
     buttonCards = new ArrayList<>();
 
@@ -40,5 +41,4 @@ public class MemoryBoard extends JFrame {
       add(memoryCard);
     }
   }
-
 }

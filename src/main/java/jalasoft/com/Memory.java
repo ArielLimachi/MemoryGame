@@ -11,17 +11,15 @@ import java.awt.event.ActionListener;
 
 public class Memory implements ActionListener {
 
-  Board board;
-  GameBehavior behavior;
+  private Board board;
+  private GameBehavior behavior;
 
-  MemoryBoard memoryBoard;
+  private MemoryBoard memoryBoard;
 
   public Memory(int w, int h) {
     board = new Board(w, h);
     behavior = new MemoryBehavior();
-
     memoryBoard = new MemoryBoard();
-
     setCards();
   }
 
@@ -61,5 +59,13 @@ public class Memory implements ActionListener {
     MemoryCard button = (MemoryCard) obj;
     button.setClicked(true);
     performAction();
+  }
+
+  public GameBehavior getBehavior() {
+    return behavior;
+  }
+
+  public void setBehavior(GameBehavior behavior) {
+    this.behavior = behavior;
   }
 }
