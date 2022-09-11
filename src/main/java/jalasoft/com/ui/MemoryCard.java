@@ -1,6 +1,7 @@
 package jalasoft.com.ui;
 
 import jalasoft.com.models.CardState;
+import jalasoft.com.utils.Constants;
 import jalasoft.com.utils.UIConstants;
 import java.util.Objects;
 import javax.swing.JButton;
@@ -15,15 +16,15 @@ public class MemoryCard extends JButton {
   public MemoryCard(int id, String text) {
     super();
     this.id = id;
-    this.symbol = text.charAt(0);
+    this.symbol = text.charAt(Constants.ZERO);
     clicked = false;
-    setSize(UIConstants.MEMORY_CARD_WIDTH, UIConstants.MEMORY_CARD_HEIGHT);
+    setFont(UIConstants.MEMORY_CARD_FONT);
     setDefaultHiddenState();
   }
 
   public void setDefaultHiddenState() {
     state = CardState.HIDDEN;
-    setText("" + '?');
+    setText(UIConstants.MEMORY_CARD_HIDDEN_SYMBOL);
   }
 
   public char getSymbol() {
@@ -54,10 +55,10 @@ public class MemoryCard extends JButton {
     this.state = state;
     switch (state) {
       case HIDDEN:
-        setText("" + '?');
+        setText(UIConstants.MEMORY_CARD_HIDDEN_SYMBOL);
         break;
       case SHOWN:
-        setText("" + symbol);
+        setText(UIConstants.MEMORY_CARD_EMPTY_SYMBOL + symbol);
         break;
       case MATCHED:
         setEnabled(false);
